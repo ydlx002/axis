@@ -95,7 +95,7 @@
   </update>
 
   <!---删除用户信息-->
-  <delete id="delete" parameterType="Integer">
+  <delete id="delete" parameterType="DECIMAL">
       delete from t_s_user where id = #{id,jdbcType=DECIMAL}
   </delete>
 

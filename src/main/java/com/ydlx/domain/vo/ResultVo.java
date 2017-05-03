@@ -3,7 +3,7 @@ package com.ydlx.domain.vo;
 import java.io.Serializable;
 
 /**
- * Created by zhenhua.li on 2017/5/3.
+ * Created by ydlx on 2017/5/3.
  */
 public class ResultVo implements Serializable{
 

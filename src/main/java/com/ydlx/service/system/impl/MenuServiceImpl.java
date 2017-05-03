@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by zhenhua.li on 2017/5/3.
+ * Created by ydlx on 2017/5/3.
  */
 @Service
 public class MenuServiceImpl implements MenuService<MenuInfo> {
@@ -44,16 +44,19 @@ public class MenuServiceImpl implements MenuService<MenuInfo> {
 
     @Override
     public ResultVo addInfo(MenuInfo menuInfo) {
-        return null;
+        ResultVo resultVo = new ResultVo();
+        return resultVo;
     }
 
     @Override
     public ResultVo updateInfo(MenuInfo menuInfo) {
-        return null;
+        ResultVo resultVo = new ResultVo();
+        return resultVo;
     }
 
     @Override
     public ResultVo deleteInfo(Integer id) {
-        return null;
+        ResultVo resultVo = new ResultVo();
+        return resultVo;
     }
 }

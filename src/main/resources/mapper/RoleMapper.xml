@@ -19,7 +19,8 @@
   <sql id="Base_Column_List" >
       a.id, a.rolename, a.rolecode, b.menuid as menuid, a.operator, a.createtime, a.modifytime
   </sql>
-  
+
+    <!--查询角色信息-->
   <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
         select
           <include refid="Base_Column_List" />
@@ -31,146 +32,42 @@
   </select>
   
 
-  <!--
-  <insert id="insert" parameterType="bms.admin.model.AppBean" >
-  	<selectKey resultType="long" order="BEFORE" keyProperty="id">  
-       SELECT SEQ_BMS_APP.Nextval as ID from DUAL  
-    </selectKey>
-    insert into BMS_APP
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        ID,
-      </if>
-      <if test="appId != null" >
-        APP_ID,
-      </if>
-      <if test="appId2 != null" >
-        APP_ID2,
-      </if>
-      <if test="appId3 != null" >
-        APP_ID3,
-      </if>
-      <if test="appName != null" >
-        APP_NAME,
-      </if>
-      <if test="flag != null" >
-        FLAG,
-      </if>
-      <if test="updateTime != null" >
-        UPDATE_TIME,
-      </if>
-      <if test="createTime != null" >
-        CREATE_TIME,
-      </if>
-      <if test="createUser != null" >
-        CREATE_USER,
-      </if>
-      <if test="modifyUser != null" >
-        MODIFY_USER,
-      </if>
-      <if test="appClassId1 != null" >
-        APP_CLASS_ID1,
-      </if>
-      <if test="appClassId2 != null" >
-        APP_CLASS_ID2,
-      </if>
-      <if test="appClassId3 != null" >
-        APP_CLASS_ID3,
-      </if>
-      <if test="hasSignature != null" >
-        HAS_SIGNATURE,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=DECIMAL},
-      </if>
-      <if test="appId != null" >
-        #{appId,jdbcType=VARCHAR},
-      </if>
-      <if test="appId2 != null" >
-        #{appId2,jdbcType=VARCHAR},
-      </if>
-      <if test="appId3 != null" >
-        #{appId3,jdbcType=VARCHAR},
-      </if>
-      <if test="appName != null" >
-        #{appName,jdbcType=VARCHAR},
-      </if>
-      <if test="flag != null" >
-        #{flag,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=VARCHAR},
-      </if>
-      <if test="createUser != null" >
-        #{createUser,jdbcType=VARCHAR},
-      </if>
-      <if test="modifyUser != null" >
-        #{modifyUser,jdbcType=VARCHAR},
-      </if>
-      <if test="appClassId1 != null" >
-        #{appClassId1,jdbcType=DECIMAL},
-      </if>
-       <if test="appClassId2 != null" >
-        #{appClassId2,jdbcType=DECIMAL},
-      </if>
-      <if test="appClassId3 != null" >
-        #{appClassId3,jdbcType=DECIMAL},
-      </if>
-      <if test="hasSignature != null" >
-        #{hasSignature,jdbcType=VARCHAR},
-      </if>
-    </trim>
+<!--写入新角色信息-->
+  <insert id="insert" parameterType="com.ydlx.domain.info.RoleInfo" >
+    insert into t_s_role
+       (rolecode, rolename, createtime, modifytime, operator)
+    VALUES
+    (
+      #{roleCode, jdbcType=VARCHAR},
+      #{roleName, jdbcType=VARCHAR},
+      #{createTime, jdbcType=DATE},
+      #{modifyTime, jdbcType=DATE},
+      #{operator, jdbcType=VARCHAR}
+    )
   </insert>
-  
-  <update id="updateByPrimaryKey" parameterType="bms.admin.model.AppBean" >
-    update BMS_APP
+
+    <!--更新角色信息-->
+  <update id="update" parameterType="com.ydlx.domain.info.RoleInfo" >
+    update t_s_role
     <set >
-      <if test="appId != null" >
-        APP_ID = #{appId,jdbcType=VARCHAR},
+      <if test="roleCode != null" >
+          rolecode = #{roleCode,jdbcType=VARCHAR},
       </if>
-      <if test="appId2 != null" >
-        APP_ID2 = #{appId2,jdbcType=VARCHAR},
+      <if test="roleName != null" >
+          rolename = #{roleName,jdbcType=VARCHAR},
       </if>
-      <if test="appId3!= null" >
-        APP_ID3 = #{appId3,jdbcType=VARCHAR},
+      <if test="modifyTime!= null" >
+          modifytime = #{modifyTime,jdbcType=VARCHAR},
       </if>
-      <if test="appName != null" >
-        APP_NAME = #{appName,jdbcType=VARCHAR},
-      </if>
-      <if test="flag != null" >
-        FLAG = #{flag,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null" >
-        UPDATE_TIME = #{updateTime,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        CREATE_TIME = #{createTime,jdbcType=VARCHAR},
-      </if>
-      <if test="createUser != null" >
-        CREATE_USER = #{createUser,jdbcType=VARCHAR},
-      </if>
-      <if test="modifyUser != null" >
-        MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
-      </if>
-      <if test="appClassId1 != null" >
-        APP_CLASS_ID1 = #{appClassId1,jdbcType=DECIMAL},
-      </if>
-      <if test="appClassId2 != null" >
-        APP_CLASS_ID2 = #{appClassId2,jdbcType=DECIMAL},
-      </if>
-      <if test="appClassId3 != null" >
-        APP_CLASS_ID3 = #{appClassId3,jdbcType=DECIMAL},
-      </if>
-      <if test="hasSignature != null" >
-        HAS_SIGNATURE = #{hasSignature,jdbcType=VARCHAR},
+      <if test="operator != null" >
+          operator = #{operator,jdbcType=VARCHAR},
       </if>
     </set>
-    where ID = #{id,jdbcType=DECIMAL}
+    where ID = #{id, jdbcType=DECIMAL}
   </update>
-  -->
+
+    <!--删除角色-->
+    <delete id="delete" parameterType="DECIMAL">
+        delete from t_s_role where id= #{id, jdbcType=DECIMAL}
+    </delete>
 </mapper>

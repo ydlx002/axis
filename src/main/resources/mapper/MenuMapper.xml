@@ -19,7 +19,8 @@
   <sql id="Base_Column_List" >
       id, parentid, name, leaf, icon, path, level, url, target, operator, createtime, modifytime
   </sql>
-  
+
+  <!--获取菜单列表-->
   <select id="getList" resultMap="BaseResultMap" parameterType="java.lang.String" >
         select
           <include refid="Base_Column_List" />
@@ -36,146 +37,63 @@
   </select>
   
 
-  <!--
-  <insert id="insert" parameterType="bms.admin.model.AppBean" >
-  	<selectKey resultType="long" order="BEFORE" keyProperty="id">  
-       SELECT SEQ_BMS_APP.Nextval as ID from DUAL  
-    </selectKey>
-    insert into BMS_APP
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        ID,
-      </if>
-      <if test="appId != null" >
-        APP_ID,
-      </if>
-      <if test="appId2 != null" >
-        APP_ID2,
-      </if>
-      <if test="appId3 != null" >
-        APP_ID3,
-      </if>
-      <if test="appName != null" >
-        APP_NAME,
-      </if>
-      <if test="flag != null" >
-        FLAG,
-      </if>
-      <if test="updateTime != null" >
-        UPDATE_TIME,
-      </if>
-      <if test="createTime != null" >
-        CREATE_TIME,
-      </if>
-      <if test="createUser != null" >
-        CREATE_USER,
-      </if>
-      <if test="modifyUser != null" >
-        MODIFY_USER,
-      </if>
-      <if test="appClassId1 != null" >
-        APP_CLASS_ID1,
-      </if>
-      <if test="appClassId2 != null" >
-        APP_CLASS_ID2,
-      </if>
-      <if test="appClassId3 != null" >
-        APP_CLASS_ID3,
-      </if>
-      <if test="hasSignature != null" >
-        HAS_SIGNATURE,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=DECIMAL},
-      </if>
-      <if test="appId != null" >
-        #{appId,jdbcType=VARCHAR},
-      </if>
-      <if test="appId2 != null" >
-        #{appId2,jdbcType=VARCHAR},
-      </if>
-      <if test="appId3 != null" >
-        #{appId3,jdbcType=VARCHAR},
-      </if>
-      <if test="appName != null" >
-        #{appName,jdbcType=VARCHAR},
-      </if>
-      <if test="flag != null" >
-        #{flag,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=VARCHAR},
-      </if>
-      <if test="createUser != null" >
-        #{createUser,jdbcType=VARCHAR},
-      </if>
-      <if test="modifyUser != null" >
-        #{modifyUser,jdbcType=VARCHAR},
-      </if>
-      <if test="appClassId1 != null" >
-        #{appClassId1,jdbcType=DECIMAL},
-      </if>
-       <if test="appClassId2 != null" >
-        #{appClassId2,jdbcType=DECIMAL},
-      </if>
-      <if test="appClassId3 != null" >
-        #{appClassId3,jdbcType=DECIMAL},
-      </if>
-      <if test="hasSignature != null" >
-        #{hasSignature,jdbcType=VARCHAR},
-      </if>
-    </trim>
+<!--新增菜单-->
+  <insert id="insert" parameterType="com.ydlx.domain.info.MenuInfo" >
+    insert into t_s_menu
+      (parentid, name, leaf, icon, path, level, url, target, createtime, modifytime, opereator)
+    VALUES
+      (
+        #{parentId, jdbcType=INTEGER},
+        #{name, jdbcType=VARCHAR},
+        #{leaf, jdbcType=INTEGER},
+        #{icon, jdbcType=VARCHAR},
+        #{path, jdbcType=VARCHAR},
+        #{url, jdbcType=VARCHAR},
+        #{target, jdbcType=VARCHAR},
+        #{createTime, jdbcType=DATE},
+        #{modifyTime, jdbcType=DATE},
+        #{operator, jdbcType=VARCHAR}
+      )
   </insert>
-  
-  <update id="updateByPrimaryKey" parameterType="bms.admin.model.AppBean" >
-    update BMS_APP
+
+  <!--更新菜单-->
+  <update id="update" parameterType="com.ydlx.domain.info.MenuInfo" >
+    update t_s_menu
     <set >
-      <if test="appId != null" >
-        APP_ID = #{appId,jdbcType=VARCHAR},
+      <if test="parentId != null" >
+        parentId = #{parentId,jdbcType=INTEGER},
       </if>
-      <if test="appId2 != null" >
-        APP_ID2 = #{appId2,jdbcType=VARCHAR},
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="appId3!= null" >
-        APP_ID3 = #{appId3,jdbcType=VARCHAR},
+      <if test="leaf!= null" >
+        leaf = #{leaf,jdbcType=INTEGER},
       </if>
-      <if test="appName != null" >
-        APP_NAME = #{appName,jdbcType=VARCHAR},
+      <if test="icon != null" >
+        icon = #{appName,jdbcType=VARCHAR},
       </if>
-      <if test="flag != null" >
-        FLAG = #{flag,jdbcType=VARCHAR},
+      <if test="path != null" >
+        path = #{path,jdbcType=VARCHAR},
       </if>
-      <if test="updateTime != null" >
-        UPDATE_TIME = #{updateTime,jdbcType=VARCHAR},
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null" >
-        CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      <if test="target != null" >
+        target = #{target,jdbcType=VARCHAR},
       </if>
-      <if test="createUser != null" >
-        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      <if test="modifyTime != null" >
+        modifyTime = #{modifyTime,jdbcType=DATE},
       </if>
-      <if test="modifyUser != null" >
-        MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
-      </if>
-      <if test="appClassId1 != null" >
-        APP_CLASS_ID1 = #{appClassId1,jdbcType=DECIMAL},
-      </if>
-      <if test="appClassId2 != null" >
-        APP_CLASS_ID2 = #{appClassId2,jdbcType=DECIMAL},
-      </if>
-      <if test="appClassId3 != null" >
-        APP_CLASS_ID3 = #{appClassId3,jdbcType=DECIMAL},
-      </if>
-      <if test="hasSignature != null" >
-        HAS_SIGNATURE = #{hasSignature,jdbcType=VARCHAR},
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=DECIMAL}
   </update>
-  -->
+
+
+  <!---删除菜单-->
+  <delete id="delete" parameterType="DECIMAL">
+    delete from t_s_menu where id = #{id,jdbcType=DECIMAL}
+  </delete>
 </mapper>

@@ -7,7 +7,7 @@ import com.ydlx.service.system.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Created by zhenhua.li on 2017/5/3.
+ * Created by ydlx on 2017/5/3.
  */
 public class RoleServiceImpl implements RoleService<RoleInfo>{
 
@@ -17,21 +17,24 @@ public class RoleServiceImpl implements RoleService<RoleInfo>{
 
     @Override
     public RoleInfo getInfoById(Integer id) {
-        return null;
+        return roleMapper.getById(id);
     }
 
     @Override
     public ResultVo addInfo(RoleInfo roleInfo) {
-        return null;
+        ResultVo resultVo = new ResultVo();
+        return resultVo;
     }
 
     @Override
     public ResultVo updateInfo(RoleInfo roleInfo) {
-        return null;
+        ResultVo resultVo = new ResultVo();
+        return resultVo;
     }
 
     @Override
     public ResultVo deleteInfo(Integer id) {
-        return null;
+        ResultVo resultVo = new ResultVo();
+        return resultVo;
     }
 }

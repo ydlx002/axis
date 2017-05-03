@@ -3,7 +3,7 @@ package com.ydlx.service.system;
 import com.ydlx.domain.vo.ResultVo;
 
 /**
- * Created by zhenhua.li on 2017/5/3.
+ * Created by ydlx on 2017/5/3.
  */
 public interface BaseService<T> {
 

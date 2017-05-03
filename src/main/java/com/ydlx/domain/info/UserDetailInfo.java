@@ -3,7 +3,7 @@ package com.ydlx.domain.info;
 import java.util.List;
 
 /**
- * Created by zhenhua.li on 2017/5/3.
+ * Created by ydlx on 2017/5/3.
  */
 public class UserDetailInfo extends BaseInfo{
     /**用户信息*/

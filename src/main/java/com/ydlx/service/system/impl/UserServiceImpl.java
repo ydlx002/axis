@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Created by zhenhua.li on 2017/5/3.
+ * Created by ydlx on 2017/5/3.
  */
 @Service
 public class UserServiceImpl  implements UserService<UserInfo> {
@@ -18,21 +18,29 @@ public class UserServiceImpl  implements UserService<UserInfo> {
 
     @Override
     public UserInfo getInfoById(Integer id) {
-        return null;
+        return userMapper.getById(id);
     }
 
     @Override
     public ResultVo addInfo(UserInfo userInfo) {
-        return null;
+        ResultVo resultVo = new ResultVo();
+        return resultVo;
     }
 
     @Override
     public ResultVo updateInfo(UserInfo userInfo) {
-        return null;
+        ResultVo resultVo = new ResultVo();
+        return resultVo;
     }
 
     @Override
     public ResultVo deleteInfo(Integer id) {
-        return null;
+        ResultVo resultVo = new ResultVo();
+        return resultVo;
+    }
+
+    @Override
+    public UserInfo getUserByLoginAccount(String loginAccount) {
+        return userMapper.getByLoginAccount(loginAccount);
     }
 }

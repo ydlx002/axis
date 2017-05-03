@@ -2,6 +2,7 @@ package com.ydlx.dao;
 
 import com.ydlx.domain.info.MenuInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,4 +18,24 @@ public interface MenuMapper {
          * @return
          */
         List<MenuInfo> getList(List<Integer> ids);
+
+        /***
+         * 新增菜单
+         * @param menuInfo
+         * @return
+         */
+        boolean insert(MenuInfo menuInfo);
+
+        /***
+         * 更新菜单信息
+         * @param menuInfo
+         * @return
+         */
+        boolean update(MenuInfo menuInfo);
+
+        /***
+         * 删除菜单信息
+         * @return
+         */
+        boolean delete(@Param("id") Integer id);
 }
