@@ -13,35 +13,37 @@
     <result column="operator" property="operator" jdbcType="VARCHAR" />
     <result column="createtime" property="createTime" jdbcType="DATE" />
     <result column="modifytime" property="modifyTime" jdbcType="DATE" />
-    <collection property="roleIds" javaType="list" ofType="Integer">
-      <result column="roleid" property="roleId"/>
+    <collection property="roleInfos" javaType="list" ofType="com.ydlx.domain.info.RoleInfo">
+      <result column="roleid" property="id"/>
+      <result column="rolecode" property="roleCode"/>
+      <result column="rolename" property="roleName"/>
     </collection>
-
   </resultMap>
 
   
   <sql id="Base_Column_List" >
-      a.id, a.loginaccount, a.password, a.username, a.nickname, a.email, a.mobile, b.roleid as roleid, a.operator, a.createtime, a.modifytime
+      a.id, a.loginaccount, a.password, a.username, a.nickname, a.email, a.mobile, a.operator, a.createtime, a.modifytime,
+      b.roleid as roleid, c.rolecode as rolecode, c.rolename as rolename
   </sql>
 
   <!--根据用户ID获取用户信息-->
   <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
         select
           <include refid="Base_Column_List" />
-        from t_s_user a left join t_s_user_role b on a.id = b.userid
+        from t_s_user a left join t_s_user_role b on a.id = b.userid left join  t_s_role c on b.roleid = c.id
     <where>
-        a.id = #{id, jdbcType="INTEGER"}
+        a.id = #{id, jdbcType=INTEGER}
     </where>
         order by a.id ASC
   </select>
 
   <!--根据用户登录帐号获取用户信息-->
-  <select id="getByLoginAccount" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="getByLoginAccount" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
     <include refid="Base_Column_List" />
-    from t_s_user a left join t_s_user_role b on a.id = b.userid
+    from t_s_user a left join t_s_user_role b on a.id = b.userid left join  t_s_role c on b.roleid = c.id
     <where>
-      a.loginAccount = #{loginAccount, jdbcType="VARCHAR"}
+      a.loginAccount = #{loginAccount, jdbcType=VARCHAR}
     </where>
     order by a.id ASC
   </select>

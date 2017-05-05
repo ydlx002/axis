@@ -1,6 +1,5 @@
 package com.ydlx.dao;
 
-import com.ydlx.domain.info.RoleInfo;
 import com.ydlx.domain.info.UserDetailInfo;
 import com.ydlx.domain.info.UserInfo;
 import org.junit.Assert;
@@ -32,7 +31,7 @@ public class UserMapperTest {
         UserDetailInfo userDetailInfo = new UserDetailInfo();
         UserInfo userInfo = userMapper.getById(1);
         userDetailInfo.setUserInfo(userInfo);
-        RoleInfo roleInfo = roleMapper.getById(userInfo.getRoleIds().get(0));
+       // RoleInfo roleInfo = roleMapper.getById(userInfo.getRoleIds().get(0));
 
         //Assert.assertEquals(new String("管理员"), userInfo.getUserName());
     }
