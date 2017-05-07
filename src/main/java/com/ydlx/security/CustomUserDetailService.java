@@ -23,6 +23,7 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String loginAccount) throws UsernameNotFoundException {
+        logger.info("登录账号{}",loginAccount);
         UserInfo userInfo = userService.getUserByLoginAccount(loginAccount);
         if(null == userInfo){
             throw new UsernameNotFoundException("loginAccount " + loginAccount + " not found");

@@ -1,30 +1,19 @@
 package com.ydlx.security;
 
-import com.ydlx.service.system.UserService;
+import com.ydlx.handler.AuthnticationFailHandler;
+import com.ydlx.handler.LoginSuccessHandler;
+import com.ydlx.handler.LogoutSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * Created by ydlx on 2017/5/5.
@@ -37,8 +26,11 @@ import java.io.IOException;
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityConfiguation  extends WebSecurityConfigurerAdapter {
 
+//    @Autowired
+//    private CustomUserDetailService customUserDetailService;
+
     @Autowired
-    private CustomUserDetailService customUserDetailService;
+    private CustomAuthenicationProvider customAuthenicationProvider;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -47,84 +39,49 @@ public class SecurityConfiguation  extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 //任何访问都必须授权
-                .anyRequest().fullyAuthenticated()
-                //配置那些路径可以不用权限访问
-                .mvcMatchers("/login").permitAll()
+                .anyRequest().authenticated()
+                .antMatchers("/login").permitAll()
                 .and()
                 .formLogin()
                 //登陆成功后的处理，因为是API的形式所以不用跳转页面
-                .successHandler(new RestAuthenticationSuccessHandler())
+                .successHandler(new LoginSuccessHandler())
                 //登陆失败后的处理
                 .failureHandler(new SimpleUrlAuthenticationFailureHandler())
                 .and()
                 //登出后的处理
-                .logout().logoutSuccessHandler(new RestLogoutSuccessHandler())
+                .logout().logoutSuccessHandler(new LogoutSuccessHandler())
                 .and()
                 //认证不通过后的处理
                 .exceptionHandling()
-                .authenticationEntryPoint(new RestAuthenticationEntryPoint());
+                .authenticationEntryPoint(new AuthnticationFailHandler())
+                .and().httpBasic();
+    }
+
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/js/**", "/css/**", "/images/**", "/**/favicon.ico");
     }
 
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .userDetailsService(customUserDetailService)
-                .passwordEncoder(passwordEncoder())
-        ;
+        //将验证过程交给自定义验证工具
+        auth.authenticationProvider(customAuthenicationProvider);
+       // auth.userDetailsService(customUserDetailService).passwordEncoder(passwordEncoder()) ;
     }
 
 
-    @Override
-    @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+//    @Override
+//    @Bean
+//    public AuthenticationManager authenticationManagerBean() throws Exception {
+//        return super.authenticationManagerBean();
+//    }
 
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        //密码加密
-        return new BCryptPasswordEncoder(16);
-    }
+//    @Bean
+//    public PasswordEncoder passwordEncoder(){
+//        //密码加密
+//        return new BCryptPasswordEncoder(16);
+//    }
 
-    /**
-     * 登陆成功后的处理
-     */
-    public static class RestAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
-
-        @Override
-        public void onAuthenticationSuccess(HttpServletRequest request,
-                                            HttpServletResponse response, Authentication authentication)
-                throws ServletException, IOException {
-
-            clearAuthenticationAttributes(request);
-        }
-    }
-
-    /**
-     * 登出成功后的处理
-     */
-    public static class RestLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
-
-        @Override
-        public void onLogoutSuccess(HttpServletRequest request,
-                                    HttpServletResponse response, Authentication authentication)
-                throws IOException, ServletException {
-            //Do nothing!
-        }
-    }
-
-    /**
-     * 权限不通过的处理
-     */
-    public static class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
-
-        @Override
-        public void commence(HttpServletRequest request,
-                             HttpServletResponse response,
-                             AuthenticationException authException) throws IOException {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
-                    "Authentication Failed: " + authException.getMessage());
-        }
-    }
 }

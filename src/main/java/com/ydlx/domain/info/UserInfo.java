@@ -92,4 +92,16 @@ public class UserInfo extends   BaseInfo{
         this.roleInfos = roleInfos;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "loginAccount='" + loginAccount + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", userName='" + userName + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", nickName='" + nickName + '\'' +
+                '}';
+    }
 }

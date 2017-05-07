@@ -2,6 +2,8 @@ package com.ydlx.security;
 
 import com.ydlx.domain.info.RoleInfo;
 import com.ydlx.domain.info.UserInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +17,8 @@ import java.util.List;
  */
 public class SecurityUserDetails extends UserInfo implements UserDetails {
 
+    private final static Logger logger = LoggerFactory.getLogger(SecurityUserDetails.class);
+
     public SecurityUserDetails(UserInfo userInfo){
         this.setLoginAccount(userInfo.getLoginAccount())
                 .setPassword(userInfo.getPassword())
@@ -24,7 +28,6 @@ public class SecurityUserDetails extends UserInfo implements UserDetails {
                 .setNickName(userInfo.getNickName())
                 .setRoleInfos(userInfo.getRoleInfos())
                 .setId(userInfo.getId());
-
     }
 
     @Override
@@ -36,6 +39,7 @@ public class SecurityUserDetails extends UserInfo implements UserDetails {
         {
             for (RoleInfo roleInfo : roleInfos) {
                 SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_"+roleInfo.getRoleCode());
+                logger.info(",,,"+roleInfo.getRoleCode());
                 authorities.add(authority);
             }
         }
