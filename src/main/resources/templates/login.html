@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
@@ -7,11 +7,11 @@
     <title>AXIS登录</title>
     <meta name="keywords" content="AXIS"/>
     <meta name="description" content="AXIS"/>
-    <link href="hplus/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="hplus/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet"/>
-    <link href="hplus/css/animate.min.css" rel="stylesheet"/>
-    <link href="hplus/css/style.min.css" rel="stylesheet"/>
-    <link href="hplus/css/login.min.css" rel="stylesheet"/>
+    <link href="common/hplus/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="common/hplus/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet"/>
+    <link href="common/hplus/css/animate.min.css" rel="stylesheet"/>
+    <link href="common/hplus/css/style.min.css" rel="stylesheet"/>
+    <link href="common/hplus/css/login.min.css" rel="stylesheet"/>
     <script>
         if(window.top!==window.self){window.top.location=window.location};
     </script>
@@ -31,14 +31,12 @@
                 </div>
             </div>
             <div class="col-sm-5">
-                <form method="post" action="http://www.zi-han.net/theme/hplus/index.html">
-                    <h4 class="no-margins">登录：</h4>
-                    <p class="m-t-md">登录到axis</p>
-                    <input type="text" class="form-control uname" placeholder="用户名" />
-                    <input type="password" class="form-control pword m-b" placeholder="密码" />
-                    <a href="#">忘记密码了？</a>
-                    <button class="btn btn-success btn-block">登录</button>
-                </form>
+                <h4 class="no-margins">登录：</h4>
+                <p class="m-t-md">登录到axis</p>
+                <input type="text" class="form-control uname" placeholder="用户名"  id="loginAccount"/>
+                <input type="password" class="form-control pword m-b" placeholder="密码"  id="password"/>
+                <a href="#">忘记密码了？</a>
+                <button class="btn btn-success btn-block" id="btn_login">登录</button>
             </div>
         </div>
         <div class="signup-footer">
@@ -47,6 +45,13 @@
             </div>
         </div>
     </div>
+<div style="display:none">
+    <input th:value="${pubExponent}"  id="pubexponent"/>
+    <input th:value="${pubModules}"  id="pubmodules"/>
+</div>
+<script  type="application/javascript" src="common/hplus/js/jquery.min.js"/>
+    <script  type="application/javascript" src="common/js/security.js"/>
+    <script  type="application/javascript" src="common/js/login.js"/>
 </body>
 
 </html>
