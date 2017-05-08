@@ -1,5 +1,6 @@
 package com.ydlx.security;
 
+import com.ydlx.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -30,9 +31,7 @@ public class CustomAuthenicationProvider implements AuthenticationProvider{
             throw new BadCredentialsException("Username not found.");
         }
 
-        //
-
-        if(!password.equals(userDetails.getPassword())){
+        if(!MD5Util.passwordEncoder(password).equals(userDetails.getPassword())){
             throw new BadCredentialsException("Wrong password.");
         }
 

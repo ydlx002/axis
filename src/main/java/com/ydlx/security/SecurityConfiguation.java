@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * Created by ydlx on 2017/5/5.
@@ -37,10 +38,11 @@ public class SecurityConfiguation  extends WebSecurityConfigurerAdapter {
         http
                 //禁用CSRF保护
                 .csrf().disable()
+                .addFilterBefore(new LoginAuthenicationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
+                .antMatchers("/login").permitAll()
                 //任何访问都必须授权
                 .anyRequest().authenticated()
-                .antMatchers("/login").permitAll()
                 .and()
                 .formLogin()
                 //登陆成功后的处理，因为是API的形式所以不用跳转页面
@@ -60,7 +62,7 @@ public class SecurityConfiguation  extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/js/**", "/css/**", "/images/**", "/**/favicon.ico");
+        web.ignoring().antMatchers("/common/**");
     }
 
 
