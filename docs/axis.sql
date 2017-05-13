@@ -122,7 +122,7 @@ CREATE TABLE `t_s_user` (
 -- ----------------------------
 -- Records of t_s_user
 -- ----------------------------
-INSERT INTO `t_s_user` VALUES ('1', 'admin', '123456', '管理员', 'lizhenhua@ukelink.com', '18682321410', '主席', null, null, null);
+INSERT INTO `t_s_user` VALUES ('1', 'admin', '123456', '管理员', 'ydlx002@163.com', '18111111410', '主席', null, null, null);
 
 -- ----------------------------
 -- Table structure for t_s_user_role
