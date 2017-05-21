@@ -38,20 +38,24 @@ public class LoginAuthenicationFilter extends UsernamePasswordAuthenticationFilt
         String loginAccount = request.getParameter("loginAccount");
         String password = request.getParameter("password");
 
+        if("POST".equals(requestWrapper.getMethod()) && requestWrapper.getPathInfo().contains("/login")) {
+            Cipher ci = null;
+            try {
+                ci = Cipher.getInstance("RSA", new BouncyCastleProvider());
+                ci.init(Cipher.DECRYPT_MODE, (RSAPrivateKey) requestWrapper.getSession().getAttribute("prik"));
+                byte[] en_data = Hex.decodeHex(password.toCharArray());
+                password = StringUtils.reverse(new String(ci.doFinal(en_data))); //反转字符串
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            requestWrapper.addParameter("username", loginAccount);
+            requestWrapper.addParameter("password", password);
 
-        Cipher ci = null;
-        try {
-            ci = Cipher.getInstance("RSA", new BouncyCastleProvider());
-            ci.init(Cipher.DECRYPT_MODE, (RSAPrivateKey)requestWrapper.getSession().getAttribute("prik"));
-            byte[] en_data = Hex.decodeHex(password.toCharArray());
-            password = StringUtils.reverse(new String(ci.doFinal(en_data))); //反转字符串
-        } catch (Exception e) {
-            e.printStackTrace();
+        }else{
+            chain.doFilter(request,response);
         }
 
-        requestWrapper.addParameter("username" , loginAccount);
-        requestWrapper.addParameter("password", password);
-        chain.doFilter(requestWrapper,response);
+
     }
 
 
