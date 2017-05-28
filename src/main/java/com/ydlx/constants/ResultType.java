@@ -1,19 +1,19 @@
 package com.ydlx.constants;
 
 /**
- * Created by 廖师兄
- * 2017-01-21 14:23
+ * Create by ydlx on 2017/5/3.
  */
-public enum ResultEnum {
+public enum ResultType {
     FAIL("99999999", "操作失败"),
-    SUCCESS("00000000", "操作成功")
+    SUCCESS("00000000", "操作成功"),
+    SESSIONTIMEOUT("00000001","会话超时")
     ;
 
     private String returnCode;
 
     private String returnDesc;
 
-    ResultEnum(String returnCode, String returnDesc) {
+    ResultType(String returnCode, String returnDesc) {
         this.returnCode = returnCode;
         this.returnDesc = returnDesc;
     }

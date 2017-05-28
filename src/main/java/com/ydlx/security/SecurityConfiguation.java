@@ -1,6 +1,7 @@
 package com.ydlx.security;
 
 import com.ydlx.handler.AuthnticationFailHandler;
+import com.ydlx.handler.LoginFailHandler;
 import com.ydlx.handler.LoginSuccessHandler;
 import com.ydlx.handler.LogoutSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -48,7 +48,7 @@ public class SecurityConfiguation  extends WebSecurityConfigurerAdapter {
                 //登陆成功后的处理，因为是API的形式所以不用跳转页面
                 .successHandler(new LoginSuccessHandler())
                 //登陆失败后的处理
-                .failureHandler(new SimpleUrlAuthenticationFailureHandler())
+                .failureHandler(new LoginFailHandler())
                 .and()
                 //登出后的处理
                 .logout().logoutSuccessHandler(new LogoutSuccessHandler())

@@ -1,8 +1,9 @@
 package com.ydlx.handler;
 
-import com.ydlx.constants.ResultEnum;
-import com.ydlx.domain.dto.ReturnDTO;
+import com.ydlx.constants.ResultType;
+import com.ydlx.domain.vo.ResultVO;
 import com.ydlx.security.SecurityUserDetails;
+import com.ydlx.utils.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -27,8 +28,9 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         logger.info("用户 {} 登录，IP：{}",userDetails.getUsername(), getIpAddress(request));
         clearAuthenticationAttributes(request);
         //调用父类handle()方法转发或重定向到目标URL，然后调用clearAuthenticationAttributes()以删除任何剩余的会话数据。
-        //super.onAuthenticationSuccess(request, response, authentication);
-        response.getWriter().print(new ReturnDTO(ResultEnum.SUCCESS));
+        //super.onAuthenticationSuccess(request, response, authenticatin);
+        //response.getWriter().print(new ResultVO (ResultType.SUCCESS));
+        ResponseUtil.responseOutWithJson( response , new ResultVO(ResultType.SUCCESS));
     }
 
     public String getIpAddress(HttpServletRequest request){

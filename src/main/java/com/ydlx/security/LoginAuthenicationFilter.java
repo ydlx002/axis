@@ -1,6 +1,9 @@
 package com.ydlx.security;
 
+import com.ydlx.constants.ResultType;
+import com.ydlx.domain.vo.ResultVO;
 import com.ydlx.security.support.ParameterRequestWrapper;
+import com.ydlx.utils.ResponseUtil;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
@@ -38,11 +41,16 @@ public class LoginAuthenicationFilter extends UsernamePasswordAuthenticationFilt
         String loginAccount = request.getParameter("loginAccount");
         String password = request.getParameter("password");
 
-        if("POST".equals(requestWrapper.getMethod()) && requestWrapper.getPathInfo().contains("/login")) {
+        if("POST".equals(requestWrapper.getMethod()) && requestWrapper.getRequestURI().contains("/login")) {
             Cipher ci = null;
             try {
                 ci = Cipher.getInstance("RSA", new BouncyCastleProvider());
-                ci.init(Cipher.DECRYPT_MODE, (RSAPrivateKey) requestWrapper.getSession().getAttribute("prik"));
+                RSAPrivateKey rsaPrivateKey = (RSAPrivateKey)requestWrapper.getSession().getAttribute("prik");
+                if(null == rsaPrivateKey){
+                    ResponseUtil.responseOutWithJson(response, new ResultVO(ResultType.SESSIONTIMEOUT));
+                    return;
+                }
+                ci.init(Cipher.DECRYPT_MODE, rsaPrivateKey);
                 byte[] en_data = Hex.decodeHex(password.toCharArray());
                 password = StringUtils.reverse(new String(ci.doFinal(en_data))); //反转字符串
             } catch (Exception e) {
@@ -50,7 +58,7 @@ public class LoginAuthenicationFilter extends UsernamePasswordAuthenticationFilt
             }
             requestWrapper.addParameter("username", loginAccount);
             requestWrapper.addParameter("password", password);
-
+            chain.doFilter(requestWrapper, response);
         }else{
             chain.doFilter(request,response);
         }
