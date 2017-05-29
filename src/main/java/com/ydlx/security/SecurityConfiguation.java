@@ -40,7 +40,7 @@ public class SecurityConfiguation  extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .addFilterBefore(new LoginAuthenicationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/login").permitAll()
+                .antMatchers("/login","/getKey").permitAll()
                 //任何访问都必须授权
                 .anyRequest().authenticated()
                 .and()
