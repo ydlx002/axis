@@ -48,6 +48,8 @@ public class UserServiceImpl  implements UserService {
 
     @Override
     public List<UserInfo> getUserList(int currentPage, int pageSize, UserInfo info) {
-        return null;
+        currentPage = currentPage > 0 ? currentPage : 1;
+        int start = pageSize * (currentPage-1);
+        return userMapper.getListByPage(start, pageSize, info);
     }
 }

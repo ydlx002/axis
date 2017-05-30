@@ -21,6 +21,14 @@ public interface UserMapper {
          */
         List<UserInfo> getListByPage(@Param("start") int start, @Param("pageSize") int pageSize, UserInfo info);
 
+        /**
+         *  获取数据总数
+         * @param info
+         * @return
+         */
+        int getTotalCount(UserInfo info);
+
+
         /***
          * 根据ID获取用户的信息
          * @param id

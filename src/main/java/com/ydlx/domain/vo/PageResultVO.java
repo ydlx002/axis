@@ -57,6 +57,9 @@ public class PageResultVO<T extends Serializable> implements Serializable {
         this.content = content;
     }
 
+    public PageResultVO(){
+
+    }
     public PageResultVO(List<T> content, int currentPage, int pageSize, int totalElements){
         this.content = content;
         this.currentPage = currentPage;

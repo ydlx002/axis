@@ -26,6 +26,7 @@
       b.roleid as roleid, c.rolecode as rolecode, c.rolename as rolename
   </sql>
 
+
   <!--根据用户ID获取用户信息-->
   <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
         select
@@ -47,7 +48,22 @@
     </where>
     order by a.id ASC
   </select>
-  
+
+  <!--分页获取用户信息-->
+  <select id="getListByPage" resultMap="BaseResultMap" parameterType="com.ydlx.domain.info.UserInfo" >
+    select
+    <include refid="Base_Column_List" />
+    from t_s_user a left join t_s_user_role b on a.id = b.userid left join  t_s_role c on b.roleid = c.id
+    order by a.id ASC
+    limit #{start}, #{pageSize}
+  </select>
+
+  <!--获取数据总数-->
+  <select id="getTotalCount"  resultType="INTEGER" parameterType="com.ydlx.domain.info.UserInfo" >
+    select COUNT(DISTINCT(a.id))
+      from t_s_user a left join t_s_user_role b on a.id = b.userid left join  t_s_role c on b.roleid = c.id
+    order by a.id ASC
+  </select>
 
   <!-- 写入用户信息 -->
   <insert id="insert" parameterType="com.ydlx.domain.info.UserInfo" >
