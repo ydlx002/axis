@@ -43,6 +43,13 @@ public class ResultVO implements Serializable{
         this.data = data;
     }
 
+    public ResultVO setResultVO(ResultType resultType){
+        this.setResultCode(resultType.getReturnCode());
+        this.setResultDesc(resultType.getReturnDesc());
+        return this;
+    }
+
+
     public ResultVO(){
 
     }

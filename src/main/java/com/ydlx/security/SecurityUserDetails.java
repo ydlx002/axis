@@ -34,12 +34,11 @@ public class SecurityUserDetails extends UserInfo implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         List<RoleInfo> roleInfos = this.getRoleInfos();
-
         if(roleInfos != null && roleInfos.size() >0)
         {
             for (RoleInfo roleInfo : roleInfos) {
                 SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_"+roleInfo.getRoleCode());
-                logger.info(",,,"+roleInfo.getRoleCode());
+                //logger.info(",,,"+roleInfo.getRoleCode()+"======"+roleInfo.getMenuIds().size());
                 authorities.add(authority);
             }
         }

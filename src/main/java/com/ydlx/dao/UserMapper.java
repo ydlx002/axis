@@ -4,11 +4,22 @@ import com.ydlx.domain.info.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * Created by ydlx on 2017/4/29.
  */
 @Mapper
 public interface UserMapper {
+
+        /**
+         *  分页获取用户列表
+         * @param start
+         * @param pageSize
+         * @param info
+         * @return
+         */
+        List<UserInfo> getListByPage(@Param("start") int start, @Param("pageSize") int pageSize, UserInfo info);
 
         /***
          * 根据ID获取用户的信息

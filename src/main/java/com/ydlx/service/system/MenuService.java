@@ -10,10 +10,16 @@ public interface MenuService<MenuInfo> extends  BaseService<MenuInfo> {
 
     /**
      * 获取菜单树
-     * @param ids
+     * @param muneIds
      * @return
      */
-    Map<Integer, MenuInfo> getMenuTree(List<Integer> ids);
+    Map<Integer, MenuInfo> getMenuTree(List<Integer> muneIds);
 
+    /**
+     * 获取菜单树
+     * @param roleIds
+     * @return
+     */
+    List<MenuInfo> getMenuTreeByRoleIds(List<Integer> roleIds);
 
 }

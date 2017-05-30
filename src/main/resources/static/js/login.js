@@ -35,18 +35,16 @@ $(function(){
                             if(data.resultCode == '00000000'){
                                 window.location.href = $path_base + "index";
                             }else{
-                                $("#tip").html("用户名不存或者密码错误,请重新输入!");
+                                $("#tips").html("用户名不存或者密码错误,请重新输入!");
                                 $("#tips").show();
                                 $("#btn_login").removeAttr('disabled');
                             }
                         },
                         error: function () {
-                            $("#tip").html("系统错误!");
+                            $("#tips").html("系统错误!");
                             $("#tips").show();
                             $("#btn_login").removeAttr('disabled');
                         }});
-
-                    return;
                 } else {
                     $("#tip").html("发生错误，请稍候再试!");
                     $("#tips").show();
@@ -54,7 +52,7 @@ $(function(){
                 }
             },
             error:function () {
-                $("#tip").html("系统错误!");
+                $("#tips").html("系统错误!");
                 $("#tips").show();
                 $("#btn_login").removeAttr('disabled');
             }

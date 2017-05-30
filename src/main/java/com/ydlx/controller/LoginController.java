@@ -1,13 +1,21 @@
 package com.ydlx.controller;
 
 import com.ydlx.constants.ResultType;
+import com.ydlx.domain.info.MenuInfo;
+import com.ydlx.domain.info.RoleInfo;
 import com.ydlx.domain.vo.ResultVO;
+import com.ydlx.security.SecurityUserDetails;
+import com.ydlx.service.system.MenuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.KeyPair;
@@ -15,7 +23,9 @@ import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,6 +36,8 @@ public class LoginController {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
+    @Autowired
+    private MenuService menuService;
 
     /**
      * 展示登录页面
@@ -61,5 +73,20 @@ public class LoginController {
             e.printStackTrace();
         }
         return resultVO;
+    }
+
+
+    @RequestMapping(value="/index")
+    public ModelAndView index(){
+        ModelAndView mav = new ModelAndView("/index");
+        SecurityUserDetails userDetails = (SecurityUserDetails) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+        List<RoleInfo> roleInfos = userDetails.getRoleInfos();
+        List<Integer> roleIds = new ArrayList<Integer>();
+        for(RoleInfo info : roleInfos){
+            roleIds.add(info.getId());
+        }
+        List<MenuInfo> menu = menuService.getMenuTreeByRoleIds(roleIds);
+        mav.addObject("menus",menu);
+        return mav;
     }
 }

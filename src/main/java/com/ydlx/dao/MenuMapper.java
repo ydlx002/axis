@@ -20,6 +20,13 @@ public interface MenuMapper {
         List<MenuInfo> getList(List<Integer> ids);
 
         /***
+         * 根据角色ID获取菜单，ID以“，”分隔开
+         * @param roleIds
+         * @return
+         */
+        List<MenuInfo> getListByRoleId(List<Integer> roleIds);
+
+        /***
          * 新增菜单
          * @param menuInfo
          * @return

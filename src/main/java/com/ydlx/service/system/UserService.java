@@ -2,7 +2,10 @@ package com.ydlx.service.system;
 
 import com.ydlx.domain.info.UserInfo;
 
+import java.util.List;
+
 /**
+ * 用户管理
  * Created by ydlx on 2017/5/3.
  */
 public interface UserService extends BaseService<UserInfo>{
@@ -13,5 +16,8 @@ public interface UserService extends BaseService<UserInfo>{
      * @return
      */
     UserInfo getUserByLoginAccount(String loginAccount);
+
+
+    List<UserInfo> getUserList(int currentPage, int pageSize, UserInfo info);
 
 }

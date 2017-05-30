@@ -2,7 +2,7 @@ package com.ydlx.service.system.impl;
 
 import com.ydlx.dao.RoleMapper;
 import com.ydlx.domain.info.RoleInfo;
-import com.ydlx.domain.vo.ResultVo;
+import com.ydlx.domain.vo.ResultVO;
 import com.ydlx.service.system.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,20 +21,20 @@ public class RoleServiceImpl implements RoleService<RoleInfo>{
     }
 
     @Override
-    public ResultVo addInfo(RoleInfo roleInfo) {
-        ResultVo resultVo = new ResultVo();
-        return resultVo;
+    public ResultVO addInfo(RoleInfo roleInfo) {
+        ResultVO resultVO = new ResultVO();
+        return resultVO;
     }
 
     @Override
-    public ResultVo updateInfo(RoleInfo roleInfo) {
-        ResultVo resultVo = new ResultVo();
-        return resultVo;
+    public ResultVO updateInfo(RoleInfo roleInfo) {
+        ResultVO resultVO = new ResultVO();
+        return resultVO;
     }
 
     @Override
-    public ResultVo deleteInfo(Integer id) {
-        ResultVo resultVo = new ResultVo();
-        return resultVo;
+    public ResultVO deleteInfo(Integer id) {
+        ResultVO resultVO = new ResultVO();
+        return resultVO;
     }
 }

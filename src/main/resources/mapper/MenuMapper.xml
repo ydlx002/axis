@@ -35,7 +35,22 @@
     </where>
         order by id ASC
   </select>
-  
+
+  <!--根据角色ID获取菜单列表-->
+  <select id="getListByRoleId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    b.id, b.parentid, b.name, b.leaf, b.icon, b.path, b.level, b.url, b.target, b.operator, b.createtime, b.modifytime
+    from t_s_role_menu a LEFT JOIN t_s_menu b on a.menuid = b.id
+    <where>
+      <if test="list.size() &gt; 0  " >
+        a.roleid in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+          #{item}
+        </foreach>
+      </if>
+    </where>
+    order by a.id ASC
+  </select>
 
 <!--新增菜单-->
   <insert id="insert" parameterType="com.ydlx.domain.info.MenuInfo" >

@@ -1,6 +1,6 @@
 package com.ydlx.service.system;
 
-import com.ydlx.domain.vo.ResultVo;
+import com.ydlx.domain.vo.ResultVO;
 
 /**
  * Created by ydlx on 2017/5/3.
@@ -19,14 +19,14 @@ public interface BaseService<T> {
      * @param t
      * @return
      */
-     ResultVo addInfo(T t);
+     ResultVO addInfo(T t);
 
     /**
      * 更新信息
      * @param t
      * @return
      */
-     ResultVo updateInfo(T t);
+     ResultVO updateInfo(T t);
 
 
     /***
@@ -34,7 +34,7 @@ public interface BaseService<T> {
      * @param id
      * @return
      */
-    ResultVo deleteInfo(Integer id);
+    ResultVO deleteInfo(Integer id);
 
 
 }

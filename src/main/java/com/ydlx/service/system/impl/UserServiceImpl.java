@@ -2,10 +2,12 @@ package com.ydlx.service.system.impl;
 
 import com.ydlx.dao.UserMapper;
 import com.ydlx.domain.info.UserInfo;
-import com.ydlx.domain.vo.ResultVo;
+import com.ydlx.domain.vo.ResultVO;
 import com.ydlx.service.system.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by ydlx on 2017/5/3.
@@ -22,25 +24,30 @@ public class UserServiceImpl  implements UserService {
     }
 
     @Override
-    public ResultVo addInfo(UserInfo userInfo) {
-        ResultVo resultVo = new ResultVo();
-        return resultVo;
+    public ResultVO addInfo(UserInfo userInfo) {
+        ResultVO resultVO = new ResultVO();
+        return resultVO;
     }
 
     @Override
-    public ResultVo updateInfo(UserInfo userInfo) {
-        ResultVo resultVo = new ResultVo();
-        return resultVo;
+    public ResultVO updateInfo(UserInfo userInfo) {
+        ResultVO resultVO = new ResultVO();
+        return resultVO;
     }
 
     @Override
-    public ResultVo deleteInfo(Integer id) {
-        ResultVo resultVo = new ResultVo();
-        return resultVo;
+    public ResultVO deleteInfo(Integer id) {
+        ResultVO resultVO = new ResultVO();
+        return resultVO;
     }
 
     @Override
     public UserInfo getUserByLoginAccount(String loginAccount) {
         return userMapper.getByLoginAccount(loginAccount);
+    }
+
+    @Override
+    public List<UserInfo> getUserList(int currentPage, int pageSize, UserInfo info) {
+        return null;
     }
 }
