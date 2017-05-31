@@ -38,7 +38,7 @@ public class SecurityUserDetails extends UserInfo implements UserDetails {
         {
             for (RoleInfo roleInfo : roleInfos) {
                 SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_"+roleInfo.getRoleCode());
-                //logger.info(",,,"+roleInfo.getRoleCode()+"======"+roleInfo.getMenuIds().size());
+                logger.info(",,,"+roleInfo.getRoleCode()+"======");
                 authorities.add(authority);
             }
         }
