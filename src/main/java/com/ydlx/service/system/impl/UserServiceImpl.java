@@ -2,11 +2,15 @@ package com.ydlx.service.system.impl;
 
 import com.ydlx.dao.UserMapper;
 import com.ydlx.domain.info.UserInfo;
+import com.ydlx.domain.vo.PageResultVO;
 import com.ydlx.domain.vo.ResultVO;
+import com.ydlx.domain.vo.UserInfoVO;
 import com.ydlx.service.system.UserService;
+import com.ydlx.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,9 +51,29 @@ public class UserServiceImpl  implements UserService {
     }
 
     @Override
-    public List<UserInfo> getUserList(int currentPage, int pageSize, UserInfo info) {
+    public PageResultVO<UserInfoVO> getUserList(int currentPage, int pageSize, UserInfo info) {
+        PageResultVO<UserInfoVO> pageResultVO = new PageResultVO<UserInfoVO>();
         currentPage = currentPage > 0 ? currentPage : 1;
         int start = pageSize * (currentPage-1);
-        return userMapper.getListByPage(start, pageSize, info);
+        List<UserInfo> userInfos = userMapper.getListByPage(start, pageSize, info);
+        if(userInfos.size() > 0){
+            List<UserInfoVO> list = new ArrayList<UserInfoVO>();
+            for(UserInfo userInfo : userInfos){
+                UserInfoVO vo = new UserInfoVO();
+                vo.setCreateTime(DateUtil.toDateTimeFormat(userInfo.getCreateTime()));
+                vo.setModifyTime(DateUtil.toDateTimeFormat(userInfo.getModifyTime()));
+                vo.setOperator(userInfo.getOperator());
+                vo.setUserName(userInfo.getUserName())
+                        .setNickName(userInfo.getNickName())
+                        .setEmail(userInfo.getEmail())
+                        .setId(userInfo.getId())
+                        .setLoginAccount(userInfo.getLoginAccount())
+                        .setMobile(userInfo.getMobile());
+                list.add(vo);
+            }
+            int count = userMapper.getTotalCount(info);
+            return new PageResultVO(list, currentPage, pageSize, count);
+        }
+        return null;
     }
 }

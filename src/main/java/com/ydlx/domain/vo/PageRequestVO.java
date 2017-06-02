@@ -8,32 +8,32 @@ import java.io.Serializable;
 public class PageRequestVO implements Serializable{
 
     /**当前页码*/
-    private Integer currentPage;
+    private Integer page;
 
     /**每页数据行数*/
-    private Integer pageSize;
+    private Integer rows;
 
-    public Integer getCurrentPage() {
-        return currentPage;
+    public Integer getPage() {
+        return page;
     }
 
-    public void setCurrentPage(Integer currentPage) {
-        this.currentPage = currentPage;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public Integer getPageSize() {
-        return pageSize;
+    public Integer getRows() {
+        return rows;
     }
 
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
+    public void setRows(Integer rows) {
+        this.rows = rows;
     }
 
     @Override
     public String toString() {
         return "PageRequestVO{" +
-                "currentPage=" + currentPage +
-                ", pageSize=" + pageSize +
+                "page=" + page +
+                ", rows=" + rows +
                 '}';
     }
 }

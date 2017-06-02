@@ -87,6 +87,9 @@ public class DateUtil {
 	   * @return
 	   */
 	public static String toDateTimeFormat(Date dateDate) {
+		if(null == dateDate){
+			return "";
+		}
 	   SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	   String dateString = formatter.format(dateDate);
 	   return dateString;

@@ -1,8 +1,8 @@
 package com.ydlx.service.system;
 
 import com.ydlx.domain.info.UserInfo;
-
-import java.util.List;
+import com.ydlx.domain.vo.PageResultVO;
+import com.ydlx.domain.vo.UserInfoVO;
 
 /**
  * 用户管理
@@ -18,6 +18,6 @@ public interface UserService extends BaseService<UserInfo>{
     UserInfo getUserByLoginAccount(String loginAccount);
 
 
-    List<UserInfo> getUserList(int currentPage, int pageSize, UserInfo info);
+    PageResultVO<UserInfoVO> getUserList(int currentPage, int pageSize, UserInfo info);
 
 }
