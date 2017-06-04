@@ -6,9 +6,7 @@ $(document).ready(function(){
         type: 'POST',
         url: $path_base + 'system/menu/getMenu',
         success: function (data) {
-            var obj = new Array();
-            $('#nestable2').append(createMenu(obj,data).join(''));
-            $("#nestable2").nestable();
+            $('#nestable2').append(createMenu(new Array(),data).join('')).nestable();
         },
         error: function () {
             console.log("错误");
