@@ -9,7 +9,7 @@ $(document).ready(function(){
             var obj = new Array();
             var tt = createMenu(obj,data);
             $('#nestable2').append(tt.join(''));
-            $("#nestable2").nestable({group:1}).on("change",updateOutput($("#nestable2").data("output",$("#nestable2"))));
+            $("#nestable2").nestable();
         },
         error: function () {
             console.log("错误");
@@ -28,6 +28,8 @@ $(document).ready(function(){
     //         $(".dd").nestable("collapseAll")
     //     }
     // })
+
+
 
     var createMenu = function(obj, menuList){
         for(var i=0,size=menuList.length;i<size;i++) {
@@ -52,4 +54,5 @@ $(document).ready(function(){
         }
     };
 
+   // $("#nestable2").on("change",updateOutput($("#nestable2").data("output",$("#nestable2"))));
 });
