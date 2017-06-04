@@ -13,7 +13,6 @@ $(document).ready(function(){
         }
     });
 
-
     $("#nestable-menu").on("click",function(e){
         var target=$(e.target),action=target.data("action");
         if(action==="expand-all"){
@@ -23,7 +22,6 @@ $(document).ready(function(){
             $(".dd").nestable("collapseAll")
         }
     })
-
 
     var createMenu = function(obj, menuList){
         for(var i=0,size=menuList.length;i<size;i++) {
@@ -38,15 +36,4 @@ $(document).ready(function(){
         return obj;
     };
 
-    var updateOutput = function(e)
-    {
-        var list=e.length?e:$(e.target),output=list.data("output");
-        if(window.JSON){
-            output.val(window.JSON.stringify(list.nestable("serialize")))
-        }else{
-            output.val("浏览器不支持")
-        }
-    };
-
-   // $("#nestable2").on("change",updateOutput($("#nestable2").data("output",$("#nestable2"))));
 });
