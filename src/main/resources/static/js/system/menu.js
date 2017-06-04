@@ -29,7 +29,7 @@ $(document).ready(function(){
             obj.push("<li class=\"dd-item\" data-id=\"" + menuList[i].id + "\">");
             obj.push("<div class=\"dd-handle\">");
             obj.push("<span class=\"pull-right\"> <a href=\"#\"><i class=\"fa fa-edit\"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\"><i class=\"fa fa-trash\"></i></a></span>");
-            obj.push("<span class=\"label label-info\"><i class=\"fa fa-users\"></i></span>" + menuList[i].name + "</div>");
+            obj.push("<span class=\"label label-info\"><i class=\""+menuList[i].icon+"\"></i></span>" + menuList[i].name + "</div>");
             if (menuList[i].leaf == 0) {
                 createMenu(obj, menuList[i].childMenuList);
             }
