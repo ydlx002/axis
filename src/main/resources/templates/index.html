@@ -54,11 +54,11 @@
                     </li>
 
                     <li th:each="menu:${menus}">
-                        <a th:href="${menu.url}"><i class="fa fa-edit"></i> <span class="nav-label" th:text="${menu.name}">表单</span><span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level" th:if="${menu.childMenuList.size() > 0}">
-                            <li th:each="m2: ${menu.childMenuList}"><a class="J_menuItem" th:href="${m2.url}" th:text="${m2.name}">基本表单</a>
-                                <ul class="nav nav-third-level" th:if="${m2.childMenuList.size() > 0}">
-                                    <li th:each="m3: ${m2.childMenuList}"><a class="J_menuItem" th:href="${m3.url}" th:text="${m3.name}">百度WebUploader</a>
+                        <a th:href="${menu.url}"><i class="fa fa-edit"></i> <span class="nav-label" th:text="${menu.name}"></span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level" th:if="${menu.leaf == 0}">
+                            <li th:each="m2: ${menu.childMenuList}"><a class="J_menuItem" th:href="${m2.url}" th:text="${m2.name}"></a>
+                                <ul class="nav nav-third-level" th:if="${m2.leaf == 0}">
+                                    <li th:each="m3: ${m2.childMenuList}"><a class="J_menuItem" th:href="${m3.url}" th:text="${m3.name}"></a>
                                     </li>
                                 </ul>
                             </li>
@@ -607,7 +607,6 @@
             <span class="badge badge-warning pull-right">5</span>
             <a class="open-small-chat">
                 <i class="fa fa-comments"></i>
-
             </a>
         </div>
     </div>
