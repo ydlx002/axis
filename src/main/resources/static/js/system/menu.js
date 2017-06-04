@@ -7,8 +7,7 @@ $(document).ready(function(){
         url: $path_base + 'system/menu/getMenu',
         success: function (data) {
             var obj = new Array();
-            var tt = createMenu(obj,data);
-            $('#nestable2').append(tt.join(''));
+            $('#nestable2').append(createMenu(obj,data).join(''));
             $("#nestable2").nestable();
         },
         error: function () {
