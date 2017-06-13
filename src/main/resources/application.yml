@@ -25,7 +25,7 @@ spring:
     cache: false
     content-type: text/html
     suffix: .html
-    prefix: classpath:/templates/
+    prefix: classpath:/templates
     cache-period: 0
     template:
       cache: false
@@ -38,3 +38,4 @@ server:
 mybatis:
   mapperLocations: classpath:mapper/*.xml
   typeAliasesPackage: com.ydlx.domain
+
