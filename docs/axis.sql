@@ -10,18 +10,19 @@ Target Server Type    : MYSQL
 Target Server Version : 50635
 File Encoding         : 65001
 
-Date: 2017-05-31 22:45:11
+Date: 2017-08-10 19:13:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for t_s_menu
+-- Table structure for `t_s_menu`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_s_menu`;
 CREATE TABLE `t_s_menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '菜单id',
   `parentid` int(11) DEFAULT NULL COMMENT '父级菜单ID',
+  `sys_id` varchar(64) DEFAULT NULL COMMENT '系统ID',
   `name` varchar(255) DEFAULT NULL COMMENT '菜单名',
   `leaf` int(11) DEFAULT NULL COMMENT '0 非叶子节点  1叶子节点',
   `icon` varchar(255) DEFAULT NULL COMMENT '图标样式',
@@ -29,104 +30,136 @@ CREATE TABLE `t_s_menu` (
   `level` int(11) DEFAULT NULL COMMENT '菜单级数',
   `url` varchar(255) DEFAULT NULL COMMENT '跳转地址',
   `target` varchar(255) DEFAULT NULL COMMENT '跳转方式',
-  `createtime` datetime DEFAULT NULL,
-  `modifytime` datetime DEFAULT NULL,
-  `operator` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_s_menu
 -- ----------------------------
-INSERT INTO `t_s_menu` VALUES ('1', '-1', '菜单根目录', '0', null, '--', '0', '#', null, '2012-12-15 18:08:07', '2012-12-23 19:46:45', 'admin');
-INSERT INTO `t_s_menu` VALUES ('2', '1', '系统管理', '0', null, '1#2', '1', '#', null, '2012-12-13 13:46:00', '2013-04-29 10:36:34', 'admin');
-INSERT INTO `t_s_menu` VALUES ('3', '1', '业务管理', '0', null, '1#3', '1', '#', null, '2012-12-13 13:53:10', '2013-04-26 20:15:27', 'admin');
-INSERT INTO `t_s_menu` VALUES ('4', '2', '菜单管理', '0', null, '1#2#4', '2', '/system/menu/index', null, '2012-12-13 16:00:02', '2013-04-26 20:15:36', 'admin');
-INSERT INTO `t_s_menu` VALUES ('5', '2', '用户管理', '0', null, '1#2#5', '2', '/system/user/index', null, '2012-12-13 16:00:02', '2013-04-26 20:15:47', 'admin');
-INSERT INTO `t_s_menu` VALUES ('6', '2', '角色管理', '0', null, '1#2#6', '2', '/system/role/index', null, '2012-12-13 16:00:02', '2013-04-26 20:15:50', 'admin');
-INSERT INTO `t_s_menu` VALUES ('7', '4', '菜单添加', '1', null, '1#2#4#7', '3', '/system/menuAdd.jsp', 'centerFrame', '2012-12-15 18:33:28', '2013-04-26 20:16:31', 'admin');
-INSERT INTO `t_s_menu` VALUES ('8', '2', '权限管理', '0', null, '1#2#8', '2', '/system/permission/index', null, '2012-12-16 13:59:33', '2013-04-29 11:26:42', 'admin');
-INSERT INTO `t_s_menu` VALUES ('9', '4', '菜单查询', '1', null, '1#2#4#9', '3', '/system/menuList.jsp', 'centerFrame', '2012-12-16 14:15:20', '2013-04-26 20:12:33', 'admin');
-INSERT INTO `t_s_menu` VALUES ('10', '8', '权限添加', '1', null, '1#2#8#10', '3', '/system/permissionAdd.jsp', 'centerFrame', '2012-12-20 14:58:29', '2013-04-26 20:12:38', 'admin');
-INSERT INTO `t_s_menu` VALUES ('13', '8', '权限查询', '1', null, '1#2#8#13', '3', '/system/permissionList.jsp', 'centerFrame', '2012-12-20 16:28:03', '2013-04-26 20:12:43', 'admin');
-INSERT INTO `t_s_menu` VALUES ('14', '6', '角色添加', '1', null, '1#2#6#14', '3', '/system/roleAdd.jsp', 'centerFrame', '2012-12-22 12:36:14', '2013-04-26 20:12:48', 'admin');
-INSERT INTO `t_s_menu` VALUES ('15', '6', '角色查询', '1', null, '1#2#6#15', '3', '/system/roleList.jsp', 'centerFrame', '2012-12-22 14:29:28', '2013-04-26 20:12:53', 'admin');
-INSERT INTO `t_s_menu` VALUES ('16', '5', '用户添加', '1', null, '1#2#5#16', '3', '/system/userAdd.jsp', 'centerFrame', '2012-12-22 18:34:26', '2013-04-26 20:12:57', 'admin');
-INSERT INTO `t_s_menu` VALUES ('17', '5', '用户查询', '1', null, '1#2#5#17', '3', '/system/userList.jsp', 'centerFrame', '2012-12-22 19:56:13', '2013-04-26 20:13:01', 'admin');
+INSERT INTO `t_s_menu` VALUES ('1', '-1', null, '菜单根目录', '0', null, '--', '0', '#', null);
+INSERT INTO `t_s_menu` VALUES ('2', '1', null, '系统管理', '0', null, '1#2', '1', '#', null);
+INSERT INTO `t_s_menu` VALUES ('3', '1', null, '业务管理', '0', null, '1#3', '1', '#', null);
+INSERT INTO `t_s_menu` VALUES ('4', '2', null, '菜单管理', '0', null, '1#2#4', '2', '/system/menu/index', null);
+INSERT INTO `t_s_menu` VALUES ('5', '2', null, '用户管理', '0', null, '1#2#5', '2', '/system/user/index', null);
+INSERT INTO `t_s_menu` VALUES ('6', '2', null, '角色管理', '0', null, '1#2#6', '2', '/system/role/index', null);
+INSERT INTO `t_s_menu` VALUES ('7', '4', null, '菜单添加', '1', null, '1#2#4#7', '3', '/system/menuAdd.jsp', 'centerFrame');
+INSERT INTO `t_s_menu` VALUES ('8', '2', null, '权限管理', '0', null, '1#2#8', '2', '/system/permission/index', null);
+INSERT INTO `t_s_menu` VALUES ('9', '4', null, '菜单查询', '1', null, '1#2#4#9', '3', '/system/menuList.jsp', 'centerFrame');
+INSERT INTO `t_s_menu` VALUES ('10', '8', null, '权限添加', '1', null, '1#2#8#10', '3', '/system/permissionAdd.jsp', 'centerFrame');
+INSERT INTO `t_s_menu` VALUES ('13', '8', null, '权限查询', '1', null, '1#2#8#13', '3', '/system/permissionList.jsp', 'centerFrame');
+INSERT INTO `t_s_menu` VALUES ('14', '6', null, '角色添加', '1', null, '1#2#6#14', '3', '/system/roleAdd.jsp', 'centerFrame');
+INSERT INTO `t_s_menu` VALUES ('15', '6', null, '角色查询', '1', null, '1#2#6#15', '3', '/system/roleList.jsp', 'centerFrame');
+INSERT INTO `t_s_menu` VALUES ('16', '5', null, '用户添加', '1', null, '1#2#5#16', '3', '/system/userAdd.jsp', 'centerFrame');
+INSERT INTO `t_s_menu` VALUES ('17', '5', null, '用户查询', '1', null, '1#2#5#17', '3', '/system/userList.jsp', 'centerFrame');
 
 -- ----------------------------
--- Table structure for t_s_role
+-- Table structure for `t_s_role`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_s_role`;
 CREATE TABLE `t_s_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `rolecode` varchar(32) DEFAULT NULL,
   `rolename` varchar(64) DEFAULT NULL,
-  `operator` varchar(32) DEFAULT NULL,
-  `createtime` datetime DEFAULT NULL,
-  `modifytime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_s_role
 -- ----------------------------
-INSERT INTO `t_s_role` VALUES ('1', 'BROWER', '浏览', 'admin', null, null);
-INSERT INTO `t_s_role` VALUES ('2', 'delete', 'delete', 'admin', null, null);
+INSERT INTO `t_s_role` VALUES ('1', 'BROWER', '浏览');
+INSERT INTO `t_s_role` VALUES ('2', 'delete', 'delete');
 
 -- ----------------------------
--- Table structure for t_s_role_menu
+-- Table structure for `t_s_role_menu`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_s_role_menu`;
 CREATE TABLE `t_s_role_menu` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `roleid` int(10) DEFAULT NULL,
   `menuid` int(10) DEFAULT NULL,
-  `createtime` datetime DEFAULT NULL,
-  `modifytime` datetime DEFAULT NULL,
-  `operator` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_s_role_menu
 -- ----------------------------
-INSERT INTO `t_s_role_menu` VALUES ('1', '1', '1', null, null, 'admin');
-INSERT INTO `t_s_role_menu` VALUES ('2', '1', '2', null, null, 'admin');
-INSERT INTO `t_s_role_menu` VALUES ('3', '1', '3', null, null, 'admin');
-INSERT INTO `t_s_role_menu` VALUES ('4', '1', '4', null, null, 'admin');
-INSERT INTO `t_s_role_menu` VALUES ('5', '1', '5', null, null, 'admin');
-INSERT INTO `t_s_role_menu` VALUES ('6', '1', '6', null, null, 'admin');
-INSERT INTO `t_s_role_menu` VALUES ('7', '1', '7', null, null, 'admin');
-INSERT INTO `t_s_role_menu` VALUES ('8', '1', '8', null, null, 'admin');
-INSERT INTO `t_s_role_menu` VALUES ('9', '1', '9', null, null, 'admin');
-INSERT INTO `t_s_role_menu` VALUES ('10', '1', '10', null, null, 'admin');
+INSERT INTO `t_s_role_menu` VALUES ('1', '1', '1');
+INSERT INTO `t_s_role_menu` VALUES ('2', '1', '2');
+INSERT INTO `t_s_role_menu` VALUES ('3', '1', '3');
+INSERT INTO `t_s_role_menu` VALUES ('4', '1', '4');
+INSERT INTO `t_s_role_menu` VALUES ('5', '1', '5');
+INSERT INTO `t_s_role_menu` VALUES ('6', '1', '6');
+INSERT INTO `t_s_role_menu` VALUES ('7', '1', '7');
+INSERT INTO `t_s_role_menu` VALUES ('8', '1', '8');
+INSERT INTO `t_s_role_menu` VALUES ('9', '1', '9');
+INSERT INTO `t_s_role_menu` VALUES ('10', '1', '10');
 
 -- ----------------------------
--- Table structure for t_s_user
+-- Table structure for `t_s_sys`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_s_sys`;
+CREATE TABLE `t_s_sys` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '序号',
+  `sys_id` varchar(32) DEFAULT NULL COMMENT '系统ID--唯一标识',
+  `sys_code` varchar(32) DEFAULT NULL COMMENT '系统编码',
+  `sys_name` varchar(255) DEFAULT NULL COMMENT '系统名称',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='系统信息表';
+
+-- ----------------------------
+-- Records of t_s_sys
+-- ----------------------------
+INSERT INTO `t_s_sys` VALUES ('1', 'a99c066ff8724f2e9b4267ed36239dd7', 'axis', '轴');
+
+-- ----------------------------
+-- Table structure for `t_s_sys_user`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_s_sys_user`;
+CREATE TABLE `t_s_sys_user` (
+  `sys_id` varchar(32) NOT NULL DEFAULT '' COMMENT '系统ID',
+  `user_id` varchar(32) NOT NULL DEFAULT '' COMMENT '用户ID',
+  `password` varchar(128) DEFAULT NULL,
+  `user_type_id` varchar(64) DEFAULT NULL COMMENT '类型ID',
+  `enable` tinyint(1) DEFAULT '1' COMMENT '0 禁用  1 正常',
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `operator_id` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`sys_id`,`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_s_sys_user
+-- ----------------------------
+INSERT INTO `t_s_sys_user` VALUES ('a99c066ff8724f2e9b4267ed36239dd7', '8979d0383623432885229bc00dc157d5', null, null, '1', null, null, null);
+
+-- ----------------------------
+-- Table structure for `t_s_user`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_s_user`;
 CREATE TABLE `t_s_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `loginaccount` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `username` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `mobile` varchar(255) DEFAULT NULL,
-  `nickname` varchar(255) DEFAULT NULL,
-  `createtime` datetime DEFAULT NULL,
-  `modifytime` datetime DEFAULT NULL,
-  `operator` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '序号',
+  `user_id` varchar(32) DEFAULT NULL COMMENT '用户ID',
+  `login_account` varchar(64) DEFAULT NULL COMMENT '登录帐号',
+  `full_name` varchar(64) DEFAULT NULL COMMENT '用户姓名',
+  `nick_name` varchar(64) DEFAULT NULL COMMENT '昵称',
+  `email` varchar(64) DEFAULT NULL COMMENT '电子邮箱',
+  `mobile` varchar(16) DEFAULT NULL COMMENT '联系电话',
+  `remark` varchar(512) DEFAULT NULL,
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `operator_id` varchar(64) DEFAULT NULL COMMENT '操作员id',
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='用户信息表';
 
 -- ----------------------------
 -- Records of t_s_user
 -- ----------------------------
-INSERT INTO `t_s_user` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '管理员', 'lizhenhua@ukelink.com', '18682321410', '主席', null, null, null);
+INSERT INTO `t_s_user` VALUES ('1', '8979d0383623432885229bc00dc157d5', null, '管理员', '主席', '123456@qq.com', '18682321410', '这个是管理员', '2017-07-26 15:53:11', '2017-07-26 15:53:53', null);
 
 -- ----------------------------
--- Table structure for t_s_user_role
+-- Table structure for `t_s_user_role`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_s_user_role`;
 CREATE TABLE `t_s_user_role` (
@@ -137,9 +170,31 @@ CREATE TABLE `t_s_user_role` (
   `createtime` datetime DEFAULT NULL,
   `modifytime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_s_user_role
 -- ----------------------------
 INSERT INTO `t_s_user_role` VALUES ('1', '1', '1', 'admin', null, null);
+
+-- ----------------------------
+-- Function structure for `getChildList`
+-- ----------------------------
+DROP FUNCTION IF EXISTS `getChildList`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `getChildList`(rootId INT) RETURNS varchar(1000) CHARSET utf8
+BEGIN
+   DECLARE sTemp VARCHAR(1000);
+   DECLARE sTempChd VARCHAR(1000);
+
+	 SET sTemp='$';
+   SET sTempChd =cast(rootId as CHAR);
+	 
+   WHILE sTempChd is not null DO
+		SET sTemp = concat(sTemp,',',sTempChd);
+     SELECT group_concat(id) INTO sTempChd FROM t_s_menu where FIND_IN_SET(parentid,sTempChd)>0;
+   END WHILE;
+   RETURN sTemp;
+ END
+;;
+DELIMITER ;
