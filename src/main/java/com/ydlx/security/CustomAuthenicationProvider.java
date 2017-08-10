@@ -30,7 +30,7 @@ public class CustomAuthenicationProvider implements AuthenticationProvider{
         if(userDetails == null){
             throw new BadCredentialsException("Username not found.");
         }
-
+        
         if(!MD5Util.passwordEncoder(password).equals(userDetails.getPassword())){
             throw new BadCredentialsException("Wrong password.");
         }

@@ -1,11 +1,13 @@
 package com.ydlx.service.system.impl;
 
+import com.ydlx.constants.ResultType;
 import com.ydlx.dao.MenuMapper;
 import com.ydlx.domain.info.MenuInfo;
 import com.ydlx.domain.vo.ResultVO;
 import com.ydlx.service.system.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,19 +46,22 @@ public class MenuServiceImpl implements MenuService<MenuInfo> {
         Map<Integer, MenuInfo> tree = new HashMap<Integer, MenuInfo>();
         List<MenuInfo> menuList = new ArrayList<MenuInfo>();
         for(MenuInfo menuInfo : menuInfos){
-            if(menuInfo.getParentId() == -1)  //获取顶级节点
-                tree.put(menuInfo.getId(), menuInfo);
-            else{
-                MenuInfo pMenuInfo = tree.get(menuInfo.getParentId());
-                pMenuInfo.getChildMenuList().add(menuInfo);
-                tree.put(menuInfo.getId(), menuInfo);
-            }
-            if(menuInfo.getLevel() == 1){
-                menuList.add(menuInfo);
+            if(null!=menuInfo){
+                if(-1==menuInfo.getParentId())  //获取顶级节点
+                    tree.put(menuInfo.getId(), menuInfo);
+                else{
+                    MenuInfo pMenuInfo = tree.get(menuInfo.getParentId());
+                    pMenuInfo.getChildMenuList().add(menuInfo);
+                    tree.put(menuInfo.getId(), menuInfo);
+                }
+                if(menuInfo.getLevel() == 1){
+                    menuList.add(menuInfo);
+                }
             }
         }
         return menuList;
     }
+
 
     @Override
     public MenuInfo getInfoById(Integer id) {
@@ -64,9 +69,15 @@ public class MenuServiceImpl implements MenuService<MenuInfo> {
     }
 
     @Override
+    @Transactional
     public ResultVO addInfo(MenuInfo menuInfo) {
-        ResultVO resultVO = new ResultVO();
-        return resultVO;
+        MenuInfo info = new MenuInfo();
+        info.setId(menuInfo.getParentId());
+        info.setLeaf(0);//非叶子节点
+        if(menuMapper.update(info)&&menuMapper.insert(menuInfo)){
+            return new ResultVO(ResultType.SUCCESS);
+        }
+        return new ResultVO(ResultType.FAIL);
     }
 
     @Override

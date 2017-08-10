@@ -9,14 +9,16 @@ import java.util.List;
  */
 public class MenuInfo extends BaseInfo{
 
+    private Integer id;
+
     /**父级菜单ID*/
-    private int parentId;
+    private Integer parentId;
 
     /**菜单名称*/
     private String name;
 
     /**是否为叶子*/
-    private int leaf;
+    private Integer leaf;
 
     /**图标*/
     private String icon;
@@ -25,7 +27,7 @@ public class MenuInfo extends BaseInfo{
     private String path;
 
     /**菜单级数*/
-    private int level;
+    private Integer level;
 
     /**url*/
     private String url;
@@ -37,11 +39,11 @@ public class MenuInfo extends BaseInfo{
     private List<MenuInfo> childMenuList = new ArrayList<MenuInfo>();
 
 
-    public int getParentId() {
+    public Integer getParentId() {
         return parentId;
     }
 
-    public void setParentId(int parentId) {
+    public void setParentId(Integer parentId) {
         this.parentId = parentId;
     }
 
@@ -53,11 +55,11 @@ public class MenuInfo extends BaseInfo{
         this.name = name;
     }
 
-    public int getLeaf() {
+    public Integer getLeaf() {
         return leaf;
     }
 
-    public void setLeaf(int leaf) {
+    public void setLeaf(Integer leaf) {
         this.leaf = leaf;
     }
 
@@ -77,11 +79,11 @@ public class MenuInfo extends BaseInfo{
         this.path = path;
     }
 
-    public int getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
 
@@ -107,6 +109,14 @@ public class MenuInfo extends BaseInfo{
 
     public void setChildMenuList(List<MenuInfo> childMenuList) {
         this.childMenuList = childMenuList;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override

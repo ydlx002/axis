@@ -1,19 +1,21 @@
 package com.ydlx.domain.vo;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by ydlx on 2017/5/30.
  */
 public class BaseVO implements Serializable{
+
     /**操作员*/
     private String operator;
 
     /**更新时间*/
-    private String modifyTime;
+    private Date modifyTime;
 
     /**创建时间*/
-    private String createTime;
+    private Date createTime;
 
     public String getOperator() {
         return operator;
@@ -23,19 +25,19 @@ public class BaseVO implements Serializable{
         this.operator = operator;
     }
 
-    public String getModifyTime() {
+    public Date getModifyTime() {
         return modifyTime;
     }
 
-    public void setModifyTime(String modifyTime) {
+    public void setModifyTime(Date modifyTime) {
         this.modifyTime = modifyTime;
     }
 
-    public String getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 

@@ -38,8 +38,8 @@ public class HomeController {
     @PreAuthorize("hasRole('USER')")
     public UserInfo getUserInfo(UserInfo user){
         UserInfo userInfo = new UserInfo();
-        userInfo.setUserName("LIQIN");
-        userInfo.setPassword("123");
+        userInfo.setLoginAccount("LIQIN");
+       // userInfo.setPassword("123");
         return userInfo;
     }
 
@@ -49,7 +49,7 @@ public class HomeController {
     public UserInfo getAuth(UserInfo user){
         UserInfo userInfo = new UserInfo();
         //userInfo.setUserName("LIQIN");
-        userInfo.setPassword("123");
+        //userInfo.setPassword("123");
         return userInfo;
     }
 }

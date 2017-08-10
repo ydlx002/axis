@@ -2,7 +2,6 @@ package com.ydlx.controller;
 
 import com.ydlx.constants.ResultType;
 import com.ydlx.domain.info.MenuInfo;
-import com.ydlx.domain.info.RoleInfo;
 import com.ydlx.domain.vo.ResultVO;
 import com.ydlx.security.SecurityUserDetails;
 import com.ydlx.service.system.MenuService;
@@ -76,15 +75,15 @@ public class LoginController {
     }
 
 
+    /**
+     * 展示登陆后的默认页面
+     * @return
+     */
     @RequestMapping(value="/index")
     public ModelAndView index(){
         ModelAndView mav = new ModelAndView("/index");
         SecurityUserDetails userDetails = (SecurityUserDetails) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
-        List<RoleInfo> roleInfos = userDetails.getRoleInfos();
         List<Integer> roleIds = new ArrayList<Integer>();
-        for(RoleInfo info : roleInfos){
-            roleIds.add(info.getId());
-        }
         List<MenuInfo> menu = menuService.getMenuTreeByRoleIds(roleIds);
         mav.addObject("menus",menu);
         return mav;

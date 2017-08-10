@@ -1,18 +1,18 @@
-package com.ydlx.domain.info;
+package com.ydlx.domain.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Created by ydlx on 2017/4/29.
+ * Created by ydlx on 2017/6/22.
  */
-public class BaseInfo implements Serializable{
-
-    /**操作员ID*/
-    private String operatorId;
+public class BaseDTO implements Serializable{
 
     /**操作员*/
     private String operator;
+
+    /**操作员ID*/
+    private String operatorId;
 
     /**创建时间*/
     private Date createTime;
@@ -20,6 +20,13 @@ public class BaseInfo implements Serializable{
     /**更新时间*/
     private Date updateTime;
 
+    public String getOperator() {
+        return operator;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator;
+    }
 
     public String getOperatorId() {
         return operatorId;
@@ -45,26 +52,13 @@ public class BaseInfo implements Serializable{
         this.updateTime = updateTime;
     }
 
-    public String getOperator() {
-        return operator;
-    }
-
-    public void setOperator(String operator) {
-        this.operator = operator;
-    }
-
     @Override
     public String toString() {
-        return "BaseInfo{" +
-                "operatorId='" + operatorId + '\'' +
-                ", operator='" + operator + '\'' +
+        return "BaseDTO{" +
+                "operator='" + operator + '\'' +
+                ", operatorId='" + operatorId + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';
-    }
-
-    public BaseInfo(){
-        this.createTime = new Date();
-        this.updateTime = new Date();
     }
 }

@@ -22,4 +22,5 @@ public interface MenuService<MenuInfo> extends  BaseService<MenuInfo> {
      */
     List<MenuInfo> getMenuTreeByRoleIds(List<Integer> roleIds);
 
+
 }

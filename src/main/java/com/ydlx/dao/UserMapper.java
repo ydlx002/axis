@@ -1,5 +1,7 @@
 package com.ydlx.dao;
 
+import com.ydlx.domain.dto.CondictionDTO;
+import com.ydlx.domain.dto.UserDTO;
 import com.ydlx.domain.info.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -7,60 +9,55 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
+ * 用户管理dao层
  * Created by ydlx on 2017/4/29.
  */
 @Mapper
 public interface UserMapper {
 
         /**
-         *  分页获取用户列表
-         * @param start
-         * @param pageSize
-         * @param info
+         * 根据用户ID获取账户信息
+         * 包括账号密码及用户详细信息
+         * @param userInfo
          * @return
          */
-        List<UserInfo> getListByPage(@Param("start") int start, @Param("pageSize") int pageSize, UserInfo info);
+        List<UserInfo> getInfoList(UserInfo userInfo);
 
         /**
-         *  获取数据总数
-         * @param info
+         * 分页获取用户列表
+         * @param dto
          * @return
          */
-        int getTotalCount(UserInfo info);
+        List<UserInfo> getListByPage(CondictionDTO dto);
 
-
-        /***
-         * 根据ID获取用户的信息
-         * @param id
+        /**
+         *  获取用户总数
+         * @param dto
          * @return
          */
-        UserInfo getById(Integer id);
+        int getTotalCount(CondictionDTO dto);
 
-        /***
-         * 根据用户登录帐号获取用户信息
-         * @param loginAccount
-         * @return
-         */
-        UserInfo getByLoginAccount(@Param("loginAccount")String loginAccount);
 
         /**
          * 写入用户信息
-         * @param userInfo
+         * @param userDTO
          * @return
          */
-        boolean insert(UserInfo userInfo);
+        boolean insertUser(UserDTO userDTO);
+
 
         /***
          * 更新用户信息
-         * @param userInfo
+         * @param userDTO
          * @return
          */
-        boolean update(UserInfo userInfo);
+        boolean updateUser(UserDTO userDTO);
 
         /***
          * 删除用户信息
-         * @param id
+         * @param userId
          * @return
          */
-        boolean delete(@Param("id") Integer id);
+        boolean deleteUser(@Param("userId") String userId);
+
 }

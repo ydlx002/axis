@@ -2,7 +2,7 @@ package com.ydlx.controller.system;
 
 import com.ydlx.domain.info.UserInfo;
 import com.ydlx.domain.vo.PageResultVO;
-import com.ydlx.domain.vo.UserInfoVO;
+import com.ydlx.domain.vo.UserVO;
 import com.ydlx.domain.vo.request.user.QueryUserVO;
 import com.ydlx.service.system.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class UserController {
 
     @PostMapping(value = "/getList")
     @PreAuthorize("hasRole('BROWER')")
-    public PageResultVO<UserInfoVO> getList(QueryUserVO request){
+    public PageResultVO<UserVO> getList(QueryUserVO request){
         UserInfo info = new UserInfo();
         return userService.getUserList(request.getPage(), request.getRows(), info);
     }

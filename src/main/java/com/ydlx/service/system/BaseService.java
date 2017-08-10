@@ -12,7 +12,7 @@ public interface BaseService<T> {
      * @param id
      * @return
      */
-     T getInfoById(Integer id);
+     T getInfoById(String id);
 
     /**
      * 新增信息
@@ -34,7 +34,7 @@ public interface BaseService<T> {
      * @param id
      * @return
      */
-    ResultVO deleteInfo(Integer id);
+    ResultVO deleteInfo(String id);
 
 
 }

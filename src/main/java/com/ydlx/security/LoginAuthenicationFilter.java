@@ -38,9 +38,10 @@ public class LoginAuthenicationFilter extends UsernamePasswordAuthenticationFilt
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         ParameterRequestWrapper requestWrapper = new ParameterRequestWrapper((HttpServletRequest)request);
-        String loginAccount = request.getParameter("loginAccount");
+        String loginAccount = request.getParameter("userName");
         String password = request.getParameter("password");
 
+        //登录校验
         if("POST".equals(requestWrapper.getMethod()) && requestWrapper.getRequestURI().contains("/login")) {
             Cipher ci = null;
             try {
