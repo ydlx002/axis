@@ -55,7 +55,7 @@
 <!--新增菜单-->
   <insert id="insert" parameterType="com.ydlx.domain.info.MenuInfo" >
     insert into t_s_menu
-      (parentid, name, leaf, icon, path, level, url, target, createtime, modifytime, opereator)
+      (parentid, name, leaf, icon, path, level, url, target, createtime, modifytime, operator)
     VALUES
       (
         #{parentId, jdbcType=INTEGER},
@@ -63,6 +63,7 @@
         #{leaf, jdbcType=INTEGER},
         #{icon, jdbcType=VARCHAR},
         #{path, jdbcType=VARCHAR},
+        #{level, jdbcType=VARCHAR},
         #{url, jdbcType=VARCHAR},
         #{target, jdbcType=VARCHAR},
         #{createTime, jdbcType=DATE},
@@ -75,7 +76,7 @@
   <update id="update" parameterType="com.ydlx.domain.info.MenuInfo" >
     update t_s_menu
     <set >
-      <if test="parentId != null" >
+      <if test="parentId != null and 0 != parentId" >
         parentId = #{parentId,jdbcType=INTEGER},
       </if>
       <if test="name != null" >
