@@ -20,7 +20,7 @@ $(function(){
             type: 'POST',
             url:  $path_base + 'getKey',
             success: function(data){
-                if (data.resultCode == '00000000') {
+                if (data.resultCode == '0000') {
                     var postData = {};
                     postData.loginAccount = loginAccount;
                     postData.password = passwordEncrypt(password, data.data.pubExponent, data.data.pubModules);
@@ -32,7 +32,7 @@ $(function(){
                             $("#btn_login").attr('disabled', 'disabled');
                         },
                         success: function (data) {
-                            if(data.resultCode == '00000000'){
+                            if(data.resultCode == '0000'){
                                 window.location.href = $path_base + "index";
                             }else{
                                 $("#tips").html("用户名不存或者密码错误,请重新输入!");
